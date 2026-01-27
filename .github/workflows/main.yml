@@ -8,6 +8,7 @@ on:
 env:
   DOTNET_VERSION: '8.x'
   PACKAGE_OUTPUT: ./nupkg
+  NUGET_FEED_URL: 'https://nuget.pkg.github.com/ibnehussain/index.json'
 
 jobs:
   Build:
@@ -66,11 +67,7 @@ jobs:
           name: nuget-package
           path: ${{ env.PACKAGE_OUTPUT }}
 
-      # 7️⃣ CONFIGURATION VARIABLE (vars)
-      - name: Show repo variable
-        run: echo "NuGet feed is ${{ vars.NUGET_FEED_URL }}"
-
       # 8️⃣ SECRET VARIABLE (secrets)
       - name: Publish package to GitHub Packages
         run: |
-          dotnet nuget push "${{ env.PACKAGE_OUTPUT }}/*.nupkg" --source "${{ vars.NUGET_FEED_URL }}" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+          dotnet nuget push "${{ env.PACKAGE_OUTPUT }}/*.nupkg" --source "${{env.NUGET_FEED_URL }}" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
