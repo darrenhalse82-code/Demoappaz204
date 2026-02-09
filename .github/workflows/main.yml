@@ -8,4 +8,4 @@ jobs:
     steps:
       - run: echo "Hello World!"
       - run: ls -al
-      - run: pwd
+      -  uses: actions/checkout@v6.0.2
